@@ -1,0 +1,32 @@
+sudo docker run --network=br0 --ip 192.168.0.2 -v /home/rp/projects/tech/redis/7000/redis.conf:/usr/local/etc/redis/redis.conf -v /home/rp/projects/tech/redis/7000/data:/data  redisrp
+sudo docker run --network=br0 --ip 192.168.0.3 -v /home/rp/projects/tech/redis/7001/redis.conf:/usr/local/etc/redis/redis.conf -v /home/rp/projects/tech/redis/7001/data:/data  redisrp
+sudo docker run --network=br0 --ip 192.168.0.4 -v /home/rp/projects/tech/redis/7002/redis.conf:/usr/local/etc/redis/redis.conf -v /home/rp/projects/tech/redis/7002/data:/data  redisrp
+sudo docker run --network=br0 --ip 192.168.0.5 -v /home/rp/projects/tech/redis/7003/redis.conf:/usr/local/etc/redis/redis.conf -v /home/rp/projects/tech/redis/7003/data:/data  redisrp
+sudo docker run --network=br0 --ip 192.168.0.6 -v /home/rp/projects/tech/redis/7004/redis.conf:/usr/local/etc/redis/redis.conf -v /home/rp/projects/tech/redis/7004/data:/data  redisrp
+sudo docker run --network=br0 --ip 192.168.0.7 -v /home/rp/projects/tech/redis/7005/redis.conf:/usr/local/etc/redis/redis.conf -v /home/rp/projects/tech/redis/7005/data:/data  redisrp
+
+
+sudo docker exec -it 397f6e80f301 bash
+
+redis-cli --cluster create 192.168.0.2:7000 192.168.0.3:7001 192.168.0.4:7002 192.168.0.5:7003 192.168.0.6:7004 192.168.0.7:7005 --cluster-replicas 1
+
+
+set foo.{bar}.zaz 1
+set foo.{bar}.aaa 1
+set foo.{bar}.bbb 1
+
+set foo.{111}.bbb 1
+set foo.{222}.bbb 1
+set foo.{111}.ccc 1
+set foo.{222}.ccc 1
+set foo.{bar}.ccc 1
+set foo.{111}.ddd 1
+set foo.{111}.ddd 2
+set foo.{111}.ddd 3
+set foo.{111}.ddd 4
+set foo.{111}.ddd 5
+
+get foo.{111}.ddd
+get foo.{bar}.aaa
+
+get foo.{bar}.zaz
